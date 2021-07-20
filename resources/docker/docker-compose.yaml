@@ -1,0 +1,41 @@
+version: "3.4"
+services:
+  rabbit_test:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      target: builder
+    container_name: rabbit-test
+    command:  sh -c 'wait-for postgres-local:5432 --timeout=60 && cd app && fresh'
+    depends_on:
+      - postgres-local
+    volumes:
+      - ../..:/go/src/gitlab.com/rabbit-test
+      - ./kafka:/etc/secrets
+    ports:
+      - "8080:8080"
+    environment:
+      APP_NAME: rabbit-test
+      POSTGRES_DB: rabbit_db
+      POSTGRES_HOST: postgres-local
+      POSTGRES_PASSWORD: mypass
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+
+  postgres-local:
+    image: "postgres:10-alpine"
+    container_name: postgres-local
+    volumes:
+      - ./postgres/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+      - ./postgres/db:/var/lib/postgresql/data
+    restart: 'always'
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: rabbit_db
+      POSTGRES_HOST: postgres-local
+      POSTGRES_PASSWORD: mypass
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
