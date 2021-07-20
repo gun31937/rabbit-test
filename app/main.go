@@ -19,7 +19,6 @@ func main() {
 	}()
 	drivers.DBMigration()
 
-
 	srv := &netHttp.Server{
 		Addr:    ":" + env.AppPort,
 		Handler: ginEngine,

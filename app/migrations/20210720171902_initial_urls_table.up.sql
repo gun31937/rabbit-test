@@ -1,8 +1,8 @@
 CREATE TABLE urls (
-      id UUID NOT NULL CONSTRAINT urls_pkey PRIMARY KEY,
-      short_code varchar(15),
+      id uuid NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+      short_code varchar(15) unique,
       full_url text,
-      expiry timestamptz NOT NULL,
-      hits numeric(36),
-      created_at timestamptz NOT NULL
+      expiry timestamptz,
+      hits numeric(36) default 0,
+      created_at timestamptz default CURRENT_TIMESTAMP
 );
