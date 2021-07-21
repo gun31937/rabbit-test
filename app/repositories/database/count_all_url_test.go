@@ -2,25 +2,15 @@ package database_test
 
 import (
 	"errors"
-	"github.com/AlekSi/pointer"
 	gomocket "github.com/Selvatico/go-mocket"
 	"github.com/stretchr/testify/assert"
 	"rabbit-test/app/repositories"
-	"rabbit-test/app/repositories/database"
 	"testing"
-	"time"
 )
 
-func TestRepository_CreateURL(t *testing.T) {
+func TestRepository_CountAllURL(t *testing.T) {
 
-	exp := time.Now().Add(time.Hour)
-	expectedId := uint(2)
-
-	mockRequest := database.CreateShortURLRequest{
-		ShortCode: "abcdefg",
-		FullURL:   "https://www.example.com/path",
-		Expiry:    pointer.ToTime(exp),
-	}
+	expectedCount := uint64(2)
 
 	t.Run("Happy", func(t *testing.T) {
 		db := mockingDB()
@@ -30,12 +20,17 @@ func TestRepository_CreateURL(t *testing.T) {
 
 		repository := repositories.InitDatabase(db)
 
-		gomocket.Catcher.Reset().NewMock().WithQuery(`INSERT INTO "urls"`).WithID(int64(expectedId))
+		gomocket.Catcher.NewMock().
+			WithQuery(`SELECT count(*) FROM "urls"`).WithReply([]map[string]interface{}{
+			{
+				"count": expectedCount,
+			},
+		})
 
-		id, err := repository.CreateURL(mockRequest)
+		count, err := repository.CountAllURL()
 
 		assert.NoError(t, err)
-		assert.Equal(t, expectedId, *id)
+		assert.Equal(t, expectedCount, *count)
 	})
 
 	t.Run("Error unexpected error", func(t *testing.T) {
@@ -49,11 +44,11 @@ func TestRepository_CreateURL(t *testing.T) {
 
 		gomocket.Catcher.Reset().NewMock().WithError(expectedError)
 
-		id, err := repository.CreateURL(mockRequest)
+		count, err := repository.CountAllURL()
 
 		assert.Error(t, err)
 		assert.Exactly(t, expectedError, err)
-		assert.Nil(t, id)
+		assert.Nil(t, count)
 
 	})
 

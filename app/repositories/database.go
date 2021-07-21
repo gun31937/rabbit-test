@@ -6,7 +6,8 @@ import (
 )
 
 type Database interface {
-	CreateUrl(request database.CreateShortUrlRequest) error
+	CreateURL(request database.CreateShortURLRequest) (*uint, error)
+	CountAllURL() (*uint64, error)
 }
 
 func InitDatabase(db *gorm.DB) Database {

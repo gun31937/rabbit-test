@@ -1,13 +1,20 @@
 package database
 
-func (repository *Repository) CreateUrl(request CreateShortUrlRequest) error {
+func (repository *Repository) CreateURL(request CreateShortURLRequest) (*uint, error) {
 
-	if err := repository.Database.Create(request).Error; err != nil {
-		return err
+	model := request.parseModel()
+
+	if err := repository.Database.Create(&model).Error; err != nil {
+		return nil, err
 	}
-	return nil
+
+	return &model.ID, nil
 }
 
-func (CreateShortUrlRequest) TableName() string {
-	return "urls"
+func (request CreateShortURLRequest) parseModel() URL {
+	return URL{
+		ShortCode: request.ShortCode,
+		FullUrl:   request.FullURL,
+		Expiry:    request.Expiry,
+	}
 }

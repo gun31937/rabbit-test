@@ -33,17 +33,32 @@ func (m *MockDatabase) EXPECT() *MockDatabaseMockRecorder {
 	return m.recorder
 }
 
-// CreateUrl mocks base method
-func (m *MockDatabase) CreateUrl(request database.CreateShortUrlRequest) (*string, error) {
+// CreateURL mocks base method
+func (m *MockDatabase) CreateURL(request database.CreateShortURLRequest) (*uint, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateUrl", request)
-	ret0, _ := ret[0].(*string)
+	ret := m.ctrl.Call(m, "CreateURL", request)
+	ret0, _ := ret[0].(*uint)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// CreateUrl indicates an expected call of CreateUrl
-func (mr *MockDatabaseMockRecorder) CreateUrl(request interface{}) *gomock.Call {
+// CreateURL indicates an expected call of CreateURL
+func (mr *MockDatabaseMockRecorder) CreateURL(request interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUrl", reflect.TypeOf((*MockDatabase)(nil).CreateUrl), request)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateURL", reflect.TypeOf((*MockDatabase)(nil).CreateURL), request)
+}
+
+// CountAllURL mocks base method
+func (m *MockDatabase) CountAllURL() (*uint64, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CountAllURL")
+	ret0, _ := ret[0].(*uint64)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CountAllURL indicates an expected call of CountAllURL
+func (mr *MockDatabaseMockRecorder) CountAllURL() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CountAllURL", reflect.TypeOf((*MockDatabase)(nil).CountAllURL))
 }

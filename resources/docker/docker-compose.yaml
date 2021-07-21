@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
       target: builder
     container_name: rabbit-test
-    command:  sh -c 'wait-for postgres-local:5432 --timeout=60 && cd app && fresh'
+    command:  sh -c 'wait-for postgres-local:5432 --timeout=60 && wait-for redis-local:6379 --timeout=60 && cd app && fresh'
     depends_on:
       - postgres-local
     volumes:
@@ -20,6 +20,13 @@ services:
       POSTGRES_PASSWORD: mypass
       POSTGRES_PORT: 5432
       POSTGRES_USER: postgres
+      REDIS_HOST: redis-local
+      REDIS_PORT: 6379
+      REDIS_DB: 1
+      REDIS_ITEM_TTL: 10
+      REDIS_PASSWORD: mypass
+      BASE_URL: "http://localhost:8080/"
+      BLACKLIST_URL: "google.*"
 
   postgres-local:
     image: "postgres:10-alpine"
@@ -38,3 +45,13 @@ services:
       POSTGRES_PASSWORD: mypass
       POSTGRES_PORT: 5432
       POSTGRES_USER: postgres
+
+  redis-local:
+    image: "redis:6-alpine"
+    container_name: redis-local
+    command: redis-server --requirepass mypass
+    restart: 'always'
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"

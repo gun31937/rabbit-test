@@ -18,6 +18,7 @@ func main() {
 		_ = dbConn.Close()
 	}()
 	drivers.DBMigration()
+	_ = drivers.ConnectRedis()
 
 	srv := &netHttp.Server{
 		Addr:    ":" + env.AppPort,
