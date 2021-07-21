@@ -12,7 +12,6 @@ import (
 	"rabbit-test/app/repositories/database"
 	"strconv"
 	"testing"
-	"time"
 )
 
 func TestUseCase_Create(t *testing.T) {
@@ -25,9 +24,10 @@ func TestUseCase_Create(t *testing.T) {
 	mockShortCode := "rQ3Pfb"
 	mockFullURL := "https://www.facebook.com/"
 	mockExpiry := pointer.ToInt(50)
-	var mockExpiredTime *time.Time
+	var mockExpiredTime *string
+	timeFormat := "2006-01-02 15:04:05"
 
-	redisItemKey := "currentURLID"
+	redisItemKey := "CurrentURLID"
 	mockCurrentID := pointer.ToString("1000000000")
 	mockInsertID := pointer.ToUint(1000000000)
 
@@ -41,7 +41,7 @@ func TestUseCase_Create(t *testing.T) {
 			CreateURL(mock.MatchedBy(func(input database.CreateShortURLRequest) bool {
 				assert.Equal(t, mockShortCode, input.ShortCode)
 				assert.Equal(t, mockFullURL, input.FullURL)
-				mockExpiredTime = input.Expiry
+				mockExpiredTime = pointer.ToString(input.Expiry.Format(timeFormat))
 				return true
 			})).Return(mockInsertID, nil)
 		m.RedisRepo.EXPECT().Set(ctx, redisItemKey, strconv.Itoa(int(*mockInsertID))).Return(nil)
@@ -64,7 +64,7 @@ func TestUseCase_Create(t *testing.T) {
 			CreateURL(mock.MatchedBy(func(input database.CreateShortURLRequest) bool {
 				assert.Equal(t, mockShortCode, input.ShortCode)
 				assert.Equal(t, mockFullURL, input.FullURL)
-				mockExpiredTime = input.Expiry
+				mockExpiredTime = pointer.ToString(input.Expiry.Format(timeFormat))
 				return true
 			})).Return(mockInsertID, nil)
 		m.RedisRepo.EXPECT().Set(ctx, redisItemKey, strconv.Itoa(int(*mockInsertID))).Return(nil)

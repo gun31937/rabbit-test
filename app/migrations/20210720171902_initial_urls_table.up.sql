@@ -4,7 +4,7 @@ CREATE TABLE urls (
       full_url text,
       expiry timestamptz,
       hits numeric(36) default 0,
-      created_at timestamptz default CURRENT_TIMESTAMP,
-      updated_at timestamptz default CURRENT_TIMESTAMP,
+      created_at timestamptz,
+      updated_at timestamptz,
       deleted_at timestamptz
 );

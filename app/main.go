@@ -6,6 +6,9 @@ import (
 	netHttp "net/http"
 	"rabbit-test/app/drivers"
 	"rabbit-test/app/env"
+	"rabbit-test/app/handlers/http"
+	"rabbit-test/app/repositories"
+	"rabbit-test/app/usecases"
 )
 
 func main() {
@@ -18,7 +21,16 @@ func main() {
 		_ = dbConn.Close()
 	}()
 	drivers.DBMigration()
-	_ = drivers.ConnectRedis()
+
+	rdbConn := drivers.ConnectRedis()
+
+	http.NewRouterHealth(ginEngine, dbConn, rdbConn)
+
+	databaseRepo := repositories.InitDatabase(dbConn)
+	redisRepo := repositories.InitRedis(rdbConn)
+
+	remittanceUseCase := usecases.InitShortURL(databaseRepo, redisRepo)
+	http.NewRouterShortURL(ginEngine, remittanceUseCase)
 
 	srv := &netHttp.Server{
 		Addr:    ":" + env.AppPort,

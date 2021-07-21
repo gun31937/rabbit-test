@@ -3,8 +3,6 @@ package shorturl
 import (
 	"context"
 	"errors"
-	"fmt"
-	"rabbit-test/app/env"
 	"strconv"
 )
 
@@ -26,18 +24,15 @@ func (u *UseCase) Create(ctx context.Context, fullURL string, expiry *int) (*Cre
 	insertID, err := u.DatabaseRepo.CreateURL(createURLRequest)
 
 	if err != nil {
-		return nil, errors.New(errorGeneric)
+		return nil, errors.New(ErrorGeneric)
 	}
 
-	err = u.RedisRepo.Set(ctx, currentURLID, strconv.Itoa(int(*insertID)))
+	err = u.RedisRepo.Set(ctx, CurrentURLID, strconv.Itoa(int(*insertID)))
 	if err != nil {
-		return nil, errors.New(errorGeneric)
+		return nil, errors.New(ErrorGeneric)
 	}
 
-	response := CreateShortURLResponse{
-		ShortURL:    fmt.Sprintf("%s%s", env.BaseURL, shortCode),
-		ExpiredTime: createURLRequest.Expiry,
-	}
+	response := mapCreateShortURLResponse(shortCode, createURLRequest.Expiry)
 
-	return &response, nil
+	return response, nil
 }

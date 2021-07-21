@@ -3,6 +3,7 @@ package shorturl
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/AlekSi/pointer"
 	"net/url"
 	"rabbit-test/app/env"
@@ -44,22 +45,35 @@ func mapCreateURLRequest(shortCode string, fullURL string, expiry *int) database
 	return *request
 }
 
+func mapCreateShortURLResponse(shortCode string, expiredTime *time.Time) *CreateShortURLResponse {
+
+	response := new(CreateShortURLResponse)
+	response.ShortURL = fmt.Sprintf("%s%s", env.BaseURL, shortCode)
+
+	if expiredTime != nil {
+		location, _ := time.LoadLocation("Asia/Bangkok")
+		response.ExpiredTime = pointer.ToString(expiredTime.In(location).Format(TimeFormat))
+	}
+
+	return response
+}
+
 func validateCreateURLRequest(fullURL string) error {
 
 	_, err := url.ParseRequestURI(fullURL)
 	if err != nil {
-		return errors.New(errorURLFormat)
+		return errors.New(ErrorURLFormat)
 	}
 
 	blacklistUrl := env.BlacklistURL
 
 	matched, err := regexp.MatchString(blacklistUrl, fullURL)
 	if err != nil {
-		return errors.New(errorGeneric)
+		return errors.New(ErrorGeneric)
 	}
 
 	if matched {
-		return errors.New(errorMatchBlacklist)
+		return errors.New(ErrorMatchBlacklist)
 	}
 
 	return nil
@@ -67,15 +81,15 @@ func validateCreateURLRequest(fullURL string) error {
 
 func getCurrentURLID(u *UseCase, ctx context.Context) (*uint64, error) {
 
-	redisCurrentID, err := u.RedisRepo.Get(ctx, currentURLID)
+	redisCurrentID, err := u.RedisRepo.Get(ctx, CurrentURLID)
 	if err != nil {
-		return nil, errors.New(errorGeneric)
+		return nil, errors.New(ErrorGeneric)
 	}
 
 	if redisCurrentID != nil {
 		i, err := strconv.Atoi(*redisCurrentID)
 		if err != nil {
-			return nil, errors.New(errorGeneric)
+			return nil, errors.New(ErrorGeneric)
 		}
 		currentID := uint64(i)
 		return pointer.ToUint64(currentID), nil
@@ -83,7 +97,7 @@ func getCurrentURLID(u *UseCase, ctx context.Context) (*uint64, error) {
 
 	countAllURL, err := u.DatabaseRepo.CountAllURL()
 	if err != nil {
-		return nil, errors.New(errorGeneric)
+		return nil, errors.New(ErrorGeneric)
 	}
 
 	return countAllURL, nil
