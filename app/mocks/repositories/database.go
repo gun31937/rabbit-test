@@ -62,3 +62,32 @@ func (mr *MockDatabaseMockRecorder) CountAllURL() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CountAllURL", reflect.TypeOf((*MockDatabase)(nil).CountAllURL))
 }
+
+// GetURL mocks base method
+func (m *MockDatabase) GetURL(shortCode string) (*database.URL, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetURL", shortCode)
+	ret0, _ := ret[0].(*database.URL)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetURL indicates an expected call of GetURL
+func (mr *MockDatabaseMockRecorder) GetURL(shortCode interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetURL", reflect.TypeOf((*MockDatabase)(nil).GetURL), shortCode)
+}
+
+// UpdateURL mocks base method
+func (m *MockDatabase) UpdateURL(id uint, request database.UpdateShortURLRequest) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateURL", id, request)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpdateURL indicates an expected call of UpdateURL
+func (mr *MockDatabaseMockRecorder) UpdateURL(id, request interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateURL", reflect.TypeOf((*MockDatabase)(nil).UpdateURL), id, request)
+}
