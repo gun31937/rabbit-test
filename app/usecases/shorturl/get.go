@@ -17,7 +17,7 @@ func (u *UseCase) Get(ctx context.Context, shortCode string) (*string, error) {
 	}
 
 	if url.Expiry != nil && time.Now().After(*url.Expiry) {
-		return nil, errors.New(URLExpired)
+		return nil, errors.New(ErrorURLExpired)
 	}
 
 	hits := url.Hits + 1

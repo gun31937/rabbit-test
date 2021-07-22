@@ -17,6 +17,8 @@ func NewRouterShortURL(engine *gin.Engine, remittanceUseCase usecases.ShortURL) 
 		endpoint.POST("/create", handler.Create)
 	}
 
+	engine.GET("/:shortCode", handler.Get)
+
 }
 
 func NewRouterHealth(engine *gin.Engine, dbConnect *gorm.DB, rdbConnect *redis.Client) {

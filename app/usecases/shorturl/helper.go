@@ -127,7 +127,7 @@ func getURL(u *UseCase, ctx context.Context, shortCode string) (*database.URL, e
 	}
 
 	if response == nil {
-		return nil, errors.New(RecordNotFound)
+		return nil, errors.New(ErrorRecordNotFound)
 	}
 
 	return response, nil

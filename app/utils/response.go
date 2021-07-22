@@ -42,6 +42,12 @@ func GetHTTPStatusCodeWithMessage(err error) (int, string) {
 	case shorturl.ErrorURLFormat,
 		shorturl.ErrorMatchBlacklist:
 		return http.StatusBadRequest, msg
+	//gone
+	case shorturl.ErrorURLExpired:
+		return http.StatusGone, msg
+	//not found
+	case shorturl.ErrorRecordNotFound:
+		return http.StatusNotFound, msg
 	default:
 		return http.StatusInternalServerError, msg
 	}
