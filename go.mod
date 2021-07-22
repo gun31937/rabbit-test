@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/AlekSi/pointer v1.1.0
 	github.com/Selvatico/go-mocket v1.0.7
+	github.com/appleboy/gin-jwt/v2 v2.6.4
 	github.com/containerd/containerd v1.5.4 // indirect
 	github.com/docker/docker v20.10.7+incompatible // indirect
 	github.com/docker/go-connections v0.4.0 // indirect

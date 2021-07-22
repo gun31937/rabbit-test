@@ -31,6 +31,7 @@ func main() {
 
 	remittanceUseCase := usecases.InitShortURL(databaseRepo, redisRepo)
 	http.NewRouterShortURL(ginEngine, remittanceUseCase)
+	http.NewRouterAdmin(ginEngine)
 
 	srv := &netHttp.Server{
 		Addr:    ":" + env.AppPort,
