@@ -94,7 +94,7 @@ func TestUseCase_Create(t *testing.T) {
 		initEnv()
 
 		env.BlacklistURL = "(a"
-		expectedError := errors.New("something went wrong while create short url")
+		expectedError := errors.New("something went wrong")
 
 		result, err := m.UseCase.Create(ctx, mockFullURL, nil)
 		assert.Error(t, err)
@@ -119,7 +119,7 @@ func TestUseCase_Create(t *testing.T) {
 
 		initEnv()
 
-		expectedError := errors.New("something went wrong while create short url")
+		expectedError := errors.New("something went wrong")
 
 		m.RedisRepo.EXPECT().Get(ctx, redisItemKey).Return(nil, expectedError)
 		result, err := m.UseCase.Create(ctx, mockFullURL, nil)
@@ -132,7 +132,7 @@ func TestUseCase_Create(t *testing.T) {
 
 		initEnv()
 
-		expectedError := errors.New("something went wrong while create short url")
+		expectedError := errors.New("something went wrong")
 
 		m.RedisRepo.EXPECT().Get(ctx, redisItemKey).Return(pointer.ToString("bad"), nil)
 		result, err := m.UseCase.Create(ctx, mockFullURL, nil)
@@ -145,7 +145,7 @@ func TestUseCase_Create(t *testing.T) {
 
 		initEnv()
 
-		expectedError := errors.New("something went wrong while create short url")
+		expectedError := errors.New("something went wrong")
 
 		m.RedisRepo.EXPECT().Get(ctx, redisItemKey).Return(nil, nil)
 		m.DatabaseRepo.EXPECT().CountAllURL().Return(nil, expectedError)
@@ -160,7 +160,7 @@ func TestUseCase_Create(t *testing.T) {
 		initEnv()
 
 		dbRepoError := errors.New("error")
-		expectedError := errors.New("something went wrong while create short url")
+		expectedError := errors.New("something went wrong")
 
 		m.RedisRepo.EXPECT().Get(ctx, redisItemKey).Return(mockCurrentID, nil)
 		m.DatabaseRepo.EXPECT().CreateURL(gomock.Any()).Return(nil, dbRepoError)
@@ -171,12 +171,12 @@ func TestUseCase_Create(t *testing.T) {
 		assert.Nil(t, result)
 	})
 
-	t.Run("Error - when create short url", func(t *testing.T) {
+	t.Run("Error - when set item in redis", func(t *testing.T) {
 
 		initEnv()
 
 		dbRepoError := errors.New("error")
-		expectedError := errors.New("something went wrong while create short url")
+		expectedError := errors.New("something went wrong")
 
 		m.RedisRepo.EXPECT().Get(ctx, redisItemKey).Return(mockCurrentID, nil)
 		m.DatabaseRepo.EXPECT().CreateURL(gomock.Any()).Return(mockInsertID, nil)

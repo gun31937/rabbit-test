@@ -8,6 +8,7 @@ import (
 
 type ShortURL interface {
 	Create(ctx context.Context, fullUrl string, expiry *int) (*shorturl.CreateShortURLResponse, error)
+	Get(ctx context.Context, shortCode string) (*string, error)
 }
 
 func InitShortURL(databaseRepo repositories.Database, redisRepo repositories.Redis) ShortURL {

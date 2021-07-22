@@ -27,6 +27,7 @@ services:
       REDIS_PASSWORD: mypass
       BASE_URL: "http://localhost:8080/"
       BLACKLIST_URL: "google.*"
+      POPULAR_URL_HITS: 10
 
   postgres-local:
     image: "postgres:10-alpine"

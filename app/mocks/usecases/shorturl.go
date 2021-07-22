@@ -48,3 +48,18 @@ func (mr *MockShortURLMockRecorder) Create(ctx, fullUrl, expiry interface{}) *go
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockShortURL)(nil).Create), ctx, fullUrl, expiry)
 }
+
+// Get mocks base method
+func (m *MockShortURL) Get(ctx context.Context, shortCode string) (*string, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Get", ctx, shortCode)
+	ret0, _ := ret[0].(*string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Get indicates an expected call of Get
+func (mr *MockShortURLMockRecorder) Get(ctx, shortCode interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockShortURL)(nil).Get), ctx, shortCode)
+}

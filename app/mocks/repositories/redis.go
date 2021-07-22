@@ -34,7 +34,7 @@ func (m *MockRedis) EXPECT() *MockRedisMockRecorder {
 }
 
 // Set mocks base method
-func (m *MockRedis) Set(ctx context.Context, key, value string) error {
+func (m *MockRedis) Set(ctx context.Context, key string, value interface{}) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Set", ctx, key, value)
 	ret0, _ := ret[0].(error)

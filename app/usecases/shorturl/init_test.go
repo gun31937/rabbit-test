@@ -29,4 +29,5 @@ func initTest(ctrl *gomock.Controller) *mocks {
 func initEnv() {
 	env.BlacklistURL = "google.*"
 	env.BaseURL = "http://localhost:8080/"
+	env.PopularURLHits = 10
 }

@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func (r *Repository) Set(ctx context.Context, key string, value string) error {
+func (r *Repository) Set(ctx context.Context, key string, value interface{}) error {
 
 	itemTTL := time.Duration(env.RedisItemTTL) * time.Minute
 

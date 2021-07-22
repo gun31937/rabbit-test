@@ -42,13 +42,11 @@ func TestRepository_GetURL(t *testing.T) {
 		assert.Equal(t, mockedData[0]["hits"], result.Hits)
 	})
 
-	t.Run("Error - not found", func(t *testing.T) {
+	t.Run("Happy - no record", func(t *testing.T) {
 		db := mockingDB()
 		defer func() {
 			_ = db.Close()
 		}()
-
-		expectedError := errors.New("record not found")
 
 		repository := repositories.InitDatabase(db)
 
@@ -62,8 +60,7 @@ func TestRepository_GetURL(t *testing.T) {
 
 		result, err := repository.GetURL(mockedShortCode)
 
-		assert.Error(t, err)
-		assert.Exactly(t, expectedError, err)
+		assert.NoError(t, err)
 		assert.Nil(t, result)
 	})
 

@@ -2,6 +2,7 @@ package shorturl
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/AlekSi/pointer"
@@ -101,5 +102,47 @@ func getCurrentURLID(u *UseCase, ctx context.Context) (*uint64, error) {
 	}
 
 	return countAllURL, nil
+
+}
+
+func getURL(u *UseCase, ctx context.Context, shortCode string) (*database.URL, error) {
+
+	getPopularURL, err := u.RedisRepo.Get(ctx, shortCode)
+	if err != nil {
+		return nil, errors.New(ErrorGeneric)
+	}
+
+	if getPopularURL != nil {
+		response := new(database.URL)
+		err = json.Unmarshal([]byte(*getPopularURL), response)
+		if err != nil {
+			return nil, errors.New(ErrorGeneric)
+		}
+		return response, nil
+	}
+
+	response, err := u.DatabaseRepo.GetURL(shortCode)
+	if err != nil {
+		return nil, errors.New(ErrorGeneric)
+	}
+
+	if response == nil {
+		return nil, errors.New(RecordNotFound)
+	}
+
+	return response, nil
+
+}
+
+func setPopularURL(u *UseCase, ctx context.Context, popularURL database.URL) error {
+
+	popularURLJSON, _ := json.Marshal(popularURL)
+
+	err := u.RedisRepo.Set(ctx, popularURL.ShortCode, string(popularURLJSON))
+	if err != nil {
+		return errors.New(ErrorGeneric)
+	}
+
+	return nil
 
 }
