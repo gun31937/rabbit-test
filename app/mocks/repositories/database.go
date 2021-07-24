@@ -78,6 +78,21 @@ func (mr *MockDatabaseMockRecorder) GetURL(shortCode interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetURL", reflect.TypeOf((*MockDatabase)(nil).GetURL), shortCode)
 }
 
+// ListURL mocks base method
+func (m *MockDatabase) ListURL(filter database.ListURLFilterRequest) ([]database.URL, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListURL", filter)
+	ret0, _ := ret[0].([]database.URL)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListURL indicates an expected call of ListURL
+func (mr *MockDatabaseMockRecorder) ListURL(filter interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListURL", reflect.TypeOf((*MockDatabase)(nil).ListURL), filter)
+}
+
 // UpdateURL mocks base method
 func (m *MockDatabase) UpdateURL(id uint, request database.UpdateShortURLRequest) error {
 	m.ctrl.T.Helper()

@@ -14,6 +14,11 @@ type UpdateShortURLRequest struct {
 	Hits int
 }
 
+type ListURLFilterRequest struct {
+	ShortCode *string
+	Keyword   *string
+}
+
 type URL struct {
 	ID        uint       `gorm:"primary_key"`
 	ShortCode string     `gorm:"column:short_code"`
