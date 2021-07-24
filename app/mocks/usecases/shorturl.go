@@ -63,3 +63,17 @@ func (mr *MockShortURLMockRecorder) Get(ctx, shortCode interface{}) *gomock.Call
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockShortURL)(nil).Get), ctx, shortCode)
 }
+
+// Delete mocks base method
+func (m *MockShortURL) Delete(ctx context.Context, shortCode string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Delete", ctx, shortCode)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Delete indicates an expected call of Delete
+func (mr *MockShortURLMockRecorder) Delete(ctx, shortCode interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockShortURL)(nil).Delete), ctx, shortCode)
+}

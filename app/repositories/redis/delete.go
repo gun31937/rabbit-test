@@ -2,12 +2,11 @@ package redis
 
 import (
 	"context"
-	"github.com/go-redis/redis/v8"
 )
 
-func (r *Repository) Remove(ctx context.Context, key string) error {
+func (r *Repository) Delete(ctx context.Context, key string) error {
 
-	err, _ := r.RDB.Del(ctx, key).Result()
+	err := r.RDB.Del(ctx, key).Err()
 	if err != nil {
 		return err
 	}

@@ -25,6 +25,12 @@ func NewRouterShortURL(engine *gin.Engine, remittanceUseCase usecases.ShortURL) 
 		endpoint.POST("/create", handler.Create)
 	}
 
+	authorized := engine.Group("/short-url")
+	authorized.Use(authMiddleWare.MiddlewareFunc())
+	{
+		authorized.DELETE("/:shortCode", handler.Delete)
+	}
+
 }
 
 // NewRouterAdmin Using demo auth middleware.
