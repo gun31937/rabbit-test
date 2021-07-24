@@ -91,3 +91,17 @@ func (mr *MockDatabaseMockRecorder) UpdateURL(id, request interface{}) *gomock.C
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateURL", reflect.TypeOf((*MockDatabase)(nil).UpdateURL), id, request)
 }
+
+// DeleteURL mocks base method
+func (m *MockDatabase) DeleteURL(shortCode string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteURL", shortCode)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteURL indicates an expected call of DeleteURL
+func (mr *MockDatabaseMockRecorder) DeleteURL(shortCode interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteURL", reflect.TypeOf((*MockDatabase)(nil).DeleteURL), shortCode)
+}

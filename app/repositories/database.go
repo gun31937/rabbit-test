@@ -10,6 +10,7 @@ type Database interface {
 	CountAllURL() (*uint64, error)
 	GetURL(shortCode string) (*database.URL, error)
 	UpdateURL(id uint, request database.UpdateShortURLRequest) error
+	DeleteURL(shortCode string) error
 }
 
 func InitDatabase(db *gorm.DB) Database {
