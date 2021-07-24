@@ -31,14 +31,14 @@ func TestUseCase_List(t *testing.T) {
 			{
 				ID:        1,
 				ShortCode: mockShortCode,
-				FullUrl:   mockFullURL,
+				FullURL:   mockFullURL,
 				Expiry:    nil,
 				Hits:      8,
 			},
 			{
 				ID:        2,
 				ShortCode: mockShortCode,
-				FullUrl:   mockFullURL,
+				FullURL:   mockFullURL,
 				Expiry:    pointer.ToTime(time.Now()),
 				Hits:      5,
 			},
@@ -62,12 +62,12 @@ func TestUseCase_List(t *testing.T) {
 		assert.Equal(t, len(listURLResult), len(result))
 
 		assert.Equal(t, listURLResult[0].ID, result[0].ID)
-		assert.Equal(t, listURLResult[0].FullUrl, result[0].FullUrl)
+		assert.Equal(t, listURLResult[0].FullURL, result[0].FullURL)
 		assert.Equal(t, listURLResult[0].Expiry, result[0].Expiry)
 		assert.Equal(t, listURLResult[0].Hits, result[0].Hits)
 
 		assert.Equal(t, listURLResult[1].ID, result[1].ID)
-		assert.Equal(t, listURLResult[1].FullUrl, result[1].FullUrl)
+		assert.Equal(t, listURLResult[1].FullURL, result[1].FullURL)
 		assert.Equal(t, listURLResult[1].Expiry, result[1].Expiry)
 		assert.Equal(t, listURLResult[1].Hits, result[1].Hits)
 	})

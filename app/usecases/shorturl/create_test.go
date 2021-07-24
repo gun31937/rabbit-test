@@ -50,7 +50,7 @@ func TestUseCase_Create(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, result)
 		assert.Equal(t, mockShortURL, result.ShortURL)
-		assert.Equal(t, *mockExpiredTime, *result.ExpiredTime)
+		assert.Equal(t, *mockExpiredTime, *result.Expiry)
 	})
 
 	t.Run("Happy - with current id from db", func(t *testing.T) {
@@ -73,7 +73,7 @@ func TestUseCase_Create(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, result)
 		assert.Equal(t, mockShortURL, result.ShortURL)
-		assert.Equal(t, *mockExpiredTime, *result.ExpiredTime)
+		assert.Equal(t, *mockExpiredTime, *result.Expiry)
 	})
 
 	t.Run("Error - when parse url", func(t *testing.T) {

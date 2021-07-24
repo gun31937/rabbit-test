@@ -37,7 +37,7 @@ func TestRepository_GetURL(t *testing.T) {
 		assert.NoError(t, err)
 		assert.Equal(t, mockedData[0]["id"], int(result.ID))
 		assert.Equal(t, mockedData[0]["short_code"], result.ShortCode)
-		assert.Equal(t, mockedData[0]["full_url"], result.FullUrl)
+		assert.Equal(t, mockedData[0]["full_url"], result.FullURL)
 		assert.Equal(t, mockedData[0]["expiry"], result.Expiry)
 		assert.Equal(t, mockedData[0]["hits"], result.Hits)
 	})

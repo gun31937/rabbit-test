@@ -14,7 +14,7 @@ func (repository *Repository) CreateURL(request CreateShortURLRequest) (*uint, e
 func (request CreateShortURLRequest) parseModel() URL {
 	return URL{
 		ShortCode: request.ShortCode,
-		FullUrl:   request.FullURL,
+		FullURL:   request.FullURL,
 		Expiry:    request.Expiry,
 	}
 }

@@ -15,7 +15,7 @@ func TestHandler_Delete(t *testing.T) {
 
 	mockShortCode := "abc"
 	loginRequestUrl := "/login"
-	requestUrl := fmt.Sprintf("%s%s", "/short-url/", mockShortCode)
+	requestUrl := fmt.Sprintf("%s%s", "/", mockShortCode)
 
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()

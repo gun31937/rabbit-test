@@ -22,7 +22,7 @@ type ListURLFilterRequest struct {
 type URL struct {
 	ID        uint       `gorm:"primary_key"`
 	ShortCode string     `gorm:"column:short_code"`
-	FullUrl   string     `gorm:"column:full_url"`
+	FullURL   string     `gorm:"column:full_url"`
 	Expiry    *time.Time `gorm:"column:expiry" json:",omitempty"`
 	Hits      int        `gorm:"column:hits"`
 	CreatedAt time.Time  `gorm:"column:created_at"`

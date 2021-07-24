@@ -20,14 +20,12 @@ func NewRouterShortURL(engine *gin.Engine, remittanceUseCase usecases.ShortURL) 
 	handler := shorturl.Handler{ShortURLUseCase: remittanceUseCase}
 
 	engine.GET("/:shortCode", handler.Get)
-	endpoint := engine.Group("/short-url")
-	{
-		endpoint.POST("/", handler.Create)
-	}
+	engine.POST("", handler.Create)
 
-	authorized := engine.Group("/short-url")
+	authorized := engine.Group("")
 	authorized.Use(authMiddleWare.MiddlewareFunc())
 	{
+		authorized.GET("", handler.List)
 		authorized.DELETE("/:shortCode", handler.Delete)
 	}
 

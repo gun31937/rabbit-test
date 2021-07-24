@@ -14,8 +14,8 @@ type createShortURLRequest struct {
 }
 
 type createShortURLResponse struct {
-	ShortURL    string  `json:"shortURL"`
-	ExpiredTime *string `json:"expiredTime"`
+	ShortURL string  `json:"shortURL"`
+	Expiry   *string `json:"expiry"`
 }
 
 func (handler *Handler) Create(ctx *gin.Context) {

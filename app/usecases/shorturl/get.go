@@ -34,7 +34,7 @@ func (u *UseCase) Get(ctx context.Context, shortCode string) (*string, error) {
 		}
 	}
 
-	fullURL := pointer.ToString(url.FullUrl)
+	fullURL := pointer.ToString(url.FullURL)
 
 	return fullURL, nil
 }

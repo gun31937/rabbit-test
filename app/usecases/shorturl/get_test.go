@@ -27,7 +27,7 @@ func TestUseCase_Get(t *testing.T) {
 		return database.URL{
 			ID:        1,
 			ShortCode: mockShortCode,
-			FullUrl:   mockFullURL,
+			FullURL:   mockFullURL,
 			Expiry:    nil,
 			Hits:      8,
 		}
@@ -50,7 +50,7 @@ func TestUseCase_Get(t *testing.T) {
 		result, err := m.UseCase.Get(ctx, mockShortCode)
 		assert.NoError(t, err)
 		assert.NotNil(t, result)
-		assert.Equal(t, getURLResult.FullUrl, *result)
+		assert.Equal(t, getURLResult.FullURL, *result)
 	})
 
 	t.Run("Happy - get item from db, url is popular when update hits", func(t *testing.T) {
@@ -78,7 +78,7 @@ func TestUseCase_Get(t *testing.T) {
 
 		initEnv()
 
-		mockRedisItem := json.RawMessage(`{"ID":1,"ShortCode":"rQ3Pfb","FullUrl":"https://www.facebook.com/","Hits":10,"CreatedAt":"0001-01-01T00:00:00Z","UpdatedAt":"0001-01-01T00:00:00Z","DeletedAt":null}`)
+		mockRedisItem := json.RawMessage(`{"ID":1,"ShortCode":"rQ3Pfb","FullURL":"https://www.facebook.com/","Hits":10,"CreatedAt":"0001-01-01T00:00:00Z","UpdatedAt":"0001-01-01T00:00:00Z","DeletedAt":null}`)
 		getURLResult := mockGetURLResult()
 		getURLResult.Hits = 10
 

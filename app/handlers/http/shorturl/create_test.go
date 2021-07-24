@@ -14,7 +14,7 @@ import (
 
 func TestHandler_Create(t *testing.T) {
 
-	requestUrl := "/short-url/"
+	requestUrl := "/"
 	mockFullURL := "https://www.facebook.com"
 	mockExpiry := pointer.ToInt(30)
 	timeFormat := "2006-01-02 15:04:05"
@@ -31,8 +31,8 @@ func TestHandler_Create(t *testing.T) {
 		}`
 
 		mockUseCaseResponse := shorturl.CreateShortURLResponse{
-			ShortURL:    "http://localhost:8080/e",
-			ExpiredTime: pointer.ToString(time.Now().Add(time.Duration(*mockExpiry) * time.Minute).Format(timeFormat)),
+			ShortURL: "http://localhost:8080/e",
+			Expiry:   pointer.ToString(time.Now().Add(time.Duration(*mockExpiry) * time.Minute).Format(timeFormat)),
 		}
 
 		m.ShortURLseCase.EXPECT().Create(gomock.Any(), mockFullURL, mockExpiry).Return(&mockUseCaseResponse, nil)
@@ -41,7 +41,7 @@ func TestHandler_Create(t *testing.T) {
 
 		assert.Equal(t, http.StatusOK, response.Code)
 		assert.Equal(t, mockUseCaseResponse.ShortURL, responseJSON.Get("shortURL").ToString())
-		assert.Equal(t, *mockUseCaseResponse.ExpiredTime, responseJSON.Get("expiredTime").ToString())
+		assert.Equal(t, *mockUseCaseResponse.Expiry, responseJSON.Get("expiry").ToString())
 	})
 
 	t.Run("Success - with no expiry", func(t *testing.T) {
@@ -51,8 +51,8 @@ func TestHandler_Create(t *testing.T) {
 		}`
 
 		mockUseCaseResponse := shorturl.CreateShortURLResponse{
-			ShortURL:    "http://localhost:8080/e",
-			ExpiredTime: nil,
+			ShortURL: "http://localhost:8080/e",
+			Expiry:   nil,
 		}
 
 		m.ShortURLseCase.EXPECT().Create(gomock.Any(), mockFullURL, nil).Return(&mockUseCaseResponse, nil)
@@ -61,7 +61,7 @@ func TestHandler_Create(t *testing.T) {
 
 		assert.Equal(t, http.StatusOK, response.Code)
 		assert.Equal(t, mockUseCaseResponse.ShortURL, responseJSON.Get("shortURL").ToString())
-		assert.Equal(t, "", responseJSON.Get("expiredTime").ToString())
+		assert.Equal(t, "", responseJSON.Get("expiry").ToString())
 	})
 
 	t.Run("Error - required field", func(t *testing.T) {
