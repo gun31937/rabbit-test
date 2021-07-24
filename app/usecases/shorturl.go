@@ -9,6 +9,7 @@ import (
 type ShortURL interface {
 	Create(ctx context.Context, fullUrl string, expiry *int) (*shorturl.CreateShortURLResponse, error)
 	Get(ctx context.Context, shortCode string) (*string, error)
+	List(filter shorturl.ListURLRequest) ([]shorturl.URL, error)
 	Delete(ctx context.Context, shortCode string) error
 }
 

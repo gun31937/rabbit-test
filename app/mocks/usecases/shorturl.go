@@ -64,6 +64,21 @@ func (mr *MockShortURLMockRecorder) Get(ctx, shortCode interface{}) *gomock.Call
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockShortURL)(nil).Get), ctx, shortCode)
 }
 
+// List mocks base method
+func (m *MockShortURL) List(filter shorturl.ListURLRequest) ([]shorturl.URL, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "List", filter)
+	ret0, _ := ret[0].([]shorturl.URL)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// List indicates an expected call of List
+func (mr *MockShortURLMockRecorder) List(filter interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockShortURL)(nil).List), filter)
+}
+
 // Delete mocks base method
 func (m *MockShortURL) Delete(ctx context.Context, shortCode string) error {
 	m.ctrl.T.Helper()

@@ -46,14 +46,18 @@ func mapCreateURLRequest(shortCode string, fullURL string, expiry *int) database
 	return *request
 }
 
+func formatTime(t time.Time) string {
+	location, _ := time.LoadLocation("Asia/Bangkok")
+	return t.In(location).Format(TimeFormat)
+}
+
 func mapCreateShortURLResponse(shortCode string, expiredTime *time.Time) *CreateShortURLResponse {
 
 	response := new(CreateShortURLResponse)
 	response.ShortURL = fmt.Sprintf("%s%s", env.BaseURL, shortCode)
 
 	if expiredTime != nil {
-		location, _ := time.LoadLocation("Asia/Bangkok")
-		response.ExpiredTime = pointer.ToString(expiredTime.In(location).Format(TimeFormat))
+		response.ExpiredTime = pointer.ToString(formatTime(*expiredTime))
 	}
 
 	return response
