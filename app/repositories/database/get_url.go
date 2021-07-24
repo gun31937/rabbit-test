@@ -8,7 +8,7 @@ func (repository *Repository) GetURL(shortCode string) (*URL, error) {
 
 	var url URL
 
-	result := repository.Database.Where(&URL{ShortCode: shortCode}).First(&url)
+	result := repository.Database.Unscoped().Where(&URL{ShortCode: shortCode}).First(&url)
 
 	if result.Error == gorm.ErrRecordNotFound {
 		return nil, nil

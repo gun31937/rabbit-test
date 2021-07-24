@@ -14,7 +14,7 @@ import (
 
 func TestHandler_Create(t *testing.T) {
 
-	requestUrl := "/short-url/create"
+	requestUrl := "/short-url/"
 	mockFullURL := "https://www.facebook.com"
 	mockExpiry := pointer.ToInt(30)
 	timeFormat := "2006-01-02 15:04:05"

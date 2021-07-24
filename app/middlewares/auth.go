@@ -47,7 +47,7 @@ func AuthMiddleware() *jwt.GinJWTMiddleware {
 		},
 		Authenticator: func(c *gin.Context) (interface{}, error) {
 			var loginVals login
-			if err := c.ShouldBind(&loginVals); err != nil {
+			if err := c.ShouldBindJSON(&loginVals); err != nil {
 				return "", jwt.ErrMissingLoginValues
 			}
 			userID := loginVals.Username

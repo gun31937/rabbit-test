@@ -113,6 +113,24 @@ func TestUseCase_Get(t *testing.T) {
 		assert.Equal(t, expectedError, err)
 	})
 
+	t.Run("Error - url deleted", func(t *testing.T) {
+
+		initEnv()
+
+		expectedError := errors.New("url expired")
+
+		getURLResult := mockGetURLResult()
+		getURLResult.DeletedAt = pointer.ToTime(time.Now())
+
+		m.RedisRepo.EXPECT().Get(ctx, mockShortCode).Return(nil, nil)
+		m.DatabaseRepo.EXPECT().GetURL(mockShortCode).Return(&getURLResult, nil)
+
+		result, err := m.UseCase.Get(ctx, mockShortCode)
+		assert.Error(t, err)
+		assert.Nil(t, result)
+		assert.Equal(t, expectedError, err)
+	})
+
 	t.Run("Error - when get data from redis", func(t *testing.T) {
 
 		initEnv()

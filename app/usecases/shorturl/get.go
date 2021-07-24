@@ -16,7 +16,7 @@ func (u *UseCase) Get(ctx context.Context, shortCode string) (*string, error) {
 		return nil, err
 	}
 
-	if url.Expiry != nil && time.Now().After(*url.Expiry) {
+	if url.DeletedAt != nil || (url.Expiry != nil && time.Now().After(*url.Expiry)) {
 		return nil, errors.New(ErrorURLExpired)
 	}
 
