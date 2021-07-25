@@ -9,8 +9,8 @@ import (
 )
 
 type createShortURLRequest struct {
-	FullURL string `json:"fullURL" binding:"required"`
-	Expiry  *int   `json:"expiry"`
+	FullURL   string `json:"fullURL" binding:"required"`
+	ExpiresIn *int   `json:"expiresIn"`
 }
 
 type createShortURLResponse struct {
@@ -25,7 +25,7 @@ func (handler *Handler) Create(ctx *gin.Context) {
 		return
 	}
 
-	useCaseResponse, err := handler.ShortURLUseCase.Create(ctx, request.FullURL, request.Expiry)
+	useCaseResponse, err := handler.ShortURLUseCase.Create(ctx, request.FullURL, request.ExpiresIn)
 	if err != nil {
 		status, message := utils.GetHTTPStatusCodeWithMessage(err)
 		ctx.JSON(status, utils.NewErrorResponse(message))

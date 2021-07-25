@@ -27,7 +27,7 @@ func TestHandler_Create(t *testing.T) {
 
 		jsonRequestBody := `{
 			"fullURL": "` + mockFullURL + `",
-			"expiry": 30
+			"expiresIn": 30
 		}`
 
 		mockUseCaseResponse := shorturl.CreateShortURLResponse{
@@ -78,7 +78,7 @@ func TestHandler_Create(t *testing.T) {
 
 		jsonRequestBody := `{
 			"fullURL": "` + mockFullURL + `",
-			"expiry": 30
+			"expiresIn": 30
 		}`
 
 		mockUsecaseError := errors.New("error")
