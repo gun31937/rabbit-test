@@ -113,3 +113,23 @@ If no error, will return null data
 | `createdAt` | `string` | Created date and time (GMT+7)    |
 | `updatedAt` | `string` | Updated date and time (GMT+7)    |
 | `deletedAt` | `string` | Deleted date and time (GMT+7)    |
+
+### Login
+
+```http
+  POST /login
+```
+
+#### Request
+| Parameter    | Type     | Description                       |
+| :----------- | :------- | :-------------------------------- |
+| `username`   | `string` | Use `admin` for demo              |
+| `password`   | `string` | Use `admin` for demo              |
+
+#### Response
+| Parameter   | Type     | Description                      |
+| :---------- | :------- | :------------------------------- |
+| `token`     | `string` | Bearer token                     |
+| `expire`    | `string` | Expiry                           |
+
+and add bearer token to `Authorization` header to access admin endpoints
