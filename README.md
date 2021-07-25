@@ -38,7 +38,7 @@ To run tests, run the following command
 ```
 ## API Reference
 
-### Create short url
+### Create shortened url
 
 ```http
   POST /
@@ -55,7 +55,7 @@ To run tests, run the following command
 | `shortURL` | `string` | Shorten url.                     |
 | `expiry`   | `string` | Date and time to expired (GMT+7) |
 
-### Get item
+### Visit shortened url
 
 ```http
   GET /${shortCode}
@@ -66,9 +66,9 @@ To run tests, run the following command
 | `shortCode`  | `string` | Short code (after base url)       |
 
 #### Response
-If url is valid, will redirect to full url
+If url is valid, will redirect to origin url
 
-### Delete short url
+### Delete shortened url
 
 ```http
   DELETE /${shortCode}
