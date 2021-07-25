@@ -20,6 +20,7 @@ const (
 	length   = uint64(len(alphabet))
 )
 
+// generateShortCode Create a string from number.
 func generateShortCode(number uint64) string {
 
 	var encodedBuilder strings.Builder
@@ -81,6 +82,7 @@ func validateCreateURLRequest(fullURL string) error {
 	return nil
 }
 
+// getCurrentURLID get latest id from redis first, if not have will get from DB.
 func getCurrentURLID(u *UseCase, ctx context.Context) (*uint64, error) {
 
 	redisCurrentID, err := u.RedisRepo.Get(ctx, CurrentURLID)
@@ -106,6 +108,7 @@ func getCurrentURLID(u *UseCase, ctx context.Context) (*uint64, error) {
 
 }
 
+// getURL Get item from redis first, if not have will get from DB.
 func getURL(u *UseCase, ctx context.Context, shortCode string) (*database.URL, error) {
 
 	getPopularURL, err := u.RedisRepo.Get(ctx, shortCode)

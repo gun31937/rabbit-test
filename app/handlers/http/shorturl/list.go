@@ -62,6 +62,7 @@ func (listURLResponse *listURLResponse) parseResponse(data []shorturl.URL) *list
 	return listURLResponse
 }
 
+// MarshalJSON rewrite data and type when convert to JSON response.
 func (list *listURL) MarshalJSON() ([]byte, error) {
 	type puppetModel listURL
 

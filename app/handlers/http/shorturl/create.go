@@ -10,7 +10,7 @@ import (
 
 type createShortURLRequest struct {
 	FullURL   string `json:"fullURL" binding:"required"`
-	ExpiresIn *int   `json:"expiresIn"`
+	ExpiresIn *int   `json:"expiresIn"` // expires in x minutes.
 }
 
 type createShortURLResponse struct {

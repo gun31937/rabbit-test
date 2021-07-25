@@ -27,6 +27,7 @@ func (u *UseCase) Create(ctx context.Context, fullURL string, expiry *int) (*Cre
 		return nil, errors.New(ErrorGeneric)
 	}
 
+	// Set latest id to redis.
 	err = u.RedisRepo.Set(ctx, CurrentURLID, strconv.Itoa(int(*insertID)))
 	if err != nil {
 		return nil, errors.New(ErrorGeneric)

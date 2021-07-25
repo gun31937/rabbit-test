@@ -4,6 +4,7 @@ func (repository *Repository) ListURL(filter ListURLFilterRequest) ([]URL, error
 
 	var urls []URL
 
+	// Will return deleted items too.
 	query := repository.Database.Unscoped().Model(&URL{}).Order("id ASC")
 
 	if filter.ShortCode != nil {

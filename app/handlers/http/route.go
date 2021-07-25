@@ -36,6 +36,7 @@ func NewRouterAdmin(engine *gin.Engine) {
 	engine.POST("/login", authMiddleWare.LoginHandler)
 }
 
+// NewRouterHealth Just make sure services run correctly.
 func NewRouterHealth(engine *gin.Engine, dbConnect *gorm.DB, rdbConnect *redis.Client) {
 
 	engine.GET("/health", func(c *gin.Context) {

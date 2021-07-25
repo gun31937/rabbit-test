@@ -26,6 +26,7 @@ func (u *UseCase) Get(ctx context.Context, shortCode string) (*string, error) {
 		return nil, errors.New(ErrorGeneric)
 	}
 
+	// Set item in redis when reach to popular count
 	if hits >= env.PopularURLHits {
 		url.Hits = hits
 		err = setPopularURL(u, ctx, *url)

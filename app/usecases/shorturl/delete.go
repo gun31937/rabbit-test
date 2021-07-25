@@ -12,6 +12,7 @@ func (u *UseCase) Delete(ctx context.Context, shortCode string) error {
 		return errors.New(ErrorGeneric)
 	}
 
+	// Delete item in redis (if it's popular).
 	err = u.RedisRepo.Delete(ctx, shortCode)
 	if err != nil {
 		return errors.New(ErrorGeneric)

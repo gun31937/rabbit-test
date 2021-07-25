@@ -34,6 +34,7 @@ func NewErrorResponse(message string) ErrorResponse {
 	return errorResponse
 }
 
+// GetHTTPStatusCodeWithMessage Catch error message and return with status
 func GetHTTPStatusCodeWithMessage(err error) (int, string) {
 	msg := err.Error()
 	switch msg {
