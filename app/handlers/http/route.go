@@ -16,8 +16,8 @@ import (
 // endpoints that use `authMiddleWare`.
 var authMiddleWare = middlewares.AuthMiddleware()
 
-func NewRouterShortURL(engine *gin.Engine, remittanceUseCase usecases.ShortURL) {
-	handler := shorturl.Handler{ShortURLUseCase: remittanceUseCase}
+func NewRouterShortURL(engine *gin.Engine, shortURLUseCase usecases.ShortURL) {
+	handler := shorturl.Handler{ShortURLUseCase: shortURLUseCase}
 
 	engine.GET("/:shortCode", handler.Get)
 	engine.POST("", handler.Create)

@@ -29,8 +29,8 @@ func main() {
 	databaseRepo := repositories.InitDatabase(dbConn)
 	redisRepo := repositories.InitRedis(rdbConn)
 
-	remittanceUseCase := usecases.InitShortURL(databaseRepo, redisRepo)
-	http.NewRouterShortURL(ginEngine, remittanceUseCase)
+	shortURLUseCase := usecases.InitShortURL(databaseRepo, redisRepo)
+	http.NewRouterShortURL(ginEngine, shortURLUseCase)
 	http.NewRouterAdmin(ginEngine)
 
 	srv := &netHttp.Server{
